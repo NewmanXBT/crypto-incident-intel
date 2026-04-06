@@ -67,16 +67,16 @@
   "evidence": [
     {
       "id": "ev_1",
-      "sourceName": "CertiK Beanstalk Exploit Review",
-      "sourceUrl": "https://www.certik.com/resources/blog/revisiting-beanstalk-farms-exploit",
-      "claimSupported": "The exploit relied on flash-loan-amplified governance control and malicious proposal execution, causing losses around $182M.",
-      "evidenceType": "research"
+      "sourceName": "Beanstalk Governance Exploit",
+      "sourceUrl": "https://bean.money/blog/beanstalk-governance-exploit",
+      "claimSupported": "Beanstalk confirmed the exploit and documented the malicious governance proposal plus emergency execution path used in the drain.",
+      "evidenceType": "official_statement"
     },
     {
       "id": "ev_2",
-      "sourceName": "Immunefi Beanstalk Governance Attack Analysis",
-      "sourceUrl": "https://medium.com/immunefi/hack-analysis-beanstalk-governance-attack-april-2022-f42788fc821e",
-      "claimSupported": "The attacker used a one-transaction governance capture flow to pass and execute a malicious proposal.",
+      "sourceName": "CertiK Beanstalk Exploit Review",
+      "sourceUrl": "https://www.certik.com/blog/revisiting-beanstalk-farms-exploit",
+      "claimSupported": "The exploit relied on flash-loan-amplified governance control and one-transaction malicious proposal execution.",
       "evidenceType": "research"
     },
     {

@@ -29,6 +29,9 @@ jobs:
       - name: Run tests
         run: npm test
 
+      - name: Audit evidence links
+        run: npm run audit:links
+
       - name: Lint
         run: npm run lint
 

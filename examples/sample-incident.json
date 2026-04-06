@@ -74,17 +74,17 @@
   "evidence": [
     {
       "id": "ev_1",
-      "sourceName": "Wormhole Incident Update",
-      "sourceUrl": "https://wormholenetwork.com/en/wormhole-incident-2022-02-02/",
-      "claimSupported": "The bridge was paused and later restored after remediation.",
-      "evidenceType": "official_statement"
+      "sourceName": "Chainalysis Wormhole Exploit Analysis",
+      "sourceUrl": "https://www.chainalysis.com/blog/wormhole-hack-february-2022/",
+      "claimSupported": "The exploit created unbacked wrapped ETH on Solana, extraction followed, and Jump later recapitalized the missing collateral.",
+      "evidenceType": "research"
     },
     {
       "id": "ev_2",
-      "sourceName": "Wormhole Postmortem",
-      "sourceUrl": "https://wormholenetwork.com/en/wormhole-postmortem-2022-02-02/",
-      "claimSupported": "The exploit path relied on a signature verification issue in the Solana-side message flow.",
-      "evidenceType": "postmortem"
+      "sourceName": "Wormhole Security Docs",
+      "sourceUrl": "https://wormhole.com/docs/protocol/security/",
+      "claimSupported": "Wormhole's security model depends on guardian-signed messages and Solana-side verification of that cross-chain attestation path.",
+      "evidenceType": "official_statement"
     },
     {
       "id": "ev_3",

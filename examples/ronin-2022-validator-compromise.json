@@ -68,14 +68,14 @@
     {
       "id": "ev_1",
       "sourceName": "Ronin Postmortem",
-      "sourceUrl": "https://roninchain.com/blog/posts/back-to-building-ronin-security-breach-6513cc78a5ed",
+      "sourceUrl": "https://roninchain.com/blog/posts/back-to-building-ronin-security-breach-6513cc78a5edc1001b03c364",
       "claimSupported": "The attacker controlled enough validators to authorize withdrawals and exploit the bridge's trust assumptions.",
       "evidenceType": "postmortem"
     },
     {
       "id": "ev_2",
       "sourceName": "Sky Mavis Announcement",
-      "sourceUrl": "https://roninchain.com/blog/posts/community-alert-ronin-validators-under-attack",
+      "sourceUrl": "https://roninchain.com/blog/posts/community-alert-ronin-validators-6513cc78a5edc1001b03c366",
       "claimSupported": "The bridge was halted and users were informed after the exploit was discovered.",
       "evidenceType": "official_statement"
     },

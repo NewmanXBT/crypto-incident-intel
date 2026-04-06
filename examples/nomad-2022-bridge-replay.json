@@ -67,10 +67,10 @@
   "evidence": [
     {
       "id": "ev_1",
-      "sourceName": "Nomad Incident Update",
-      "sourceUrl": "https://medium.com/nomad-xyz-blog/nomad-bridge-incident-analysis-9fd3b6c6f8f8",
-      "claimSupported": "The bridge was paused and the team coordinated recovery after a Replica contract issue allowed invalid messages.",
-      "evidenceType": "official_statement"
+      "sourceName": "Nomad Root Cause Analysis",
+      "sourceUrl": "https://medium.com/nomad-xyz-blog/nomad-bridge-hack-root-cause-analysis-875ad2e5aacd",
+      "claimSupported": "Nomad attributed the incident to a Replica authentication failure that let forged messages pass validation and reach the bridge router.",
+      "evidenceType": "postmortem"
     },
     {
       "id": "ev_2",
