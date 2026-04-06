@@ -1,4 +1,3 @@
-import sampleIncidentData from "../../examples/sample-incident.json";
-import type { IncidentRecord } from "@/lib/types";
+import { getIncidentBySlug } from "@/lib/incident-repository";
 
-export const sampleIncident = sampleIncidentData as IncidentRecord;
+export const sampleIncident = getIncidentBySlug("wormhole-2022-guardian-bypass");

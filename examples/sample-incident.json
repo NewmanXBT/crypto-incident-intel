@@ -46,25 +46,29 @@
       "id": "step_1",
       "title": "Craft malicious Solana message",
       "description": "The attacker prepared a cross-chain message payload that exploited a verification path expected to enforce guardian authenticity.",
-      "confidence": "confirmed_fact"
+      "confidence": "confirmed_fact",
+      "evidenceRefs": ["ev_2"]
     },
     {
       "id": "step_2",
       "title": "Bypass guardian signature checks",
       "description": "A verification bug allowed the attacker to satisfy the bridge's acceptance logic without a legitimately approved guardian set message.",
-      "confidence": "confirmed_fact"
+      "confidence": "confirmed_fact",
+      "evidenceRefs": ["ev_2"]
     },
     {
       "id": "step_3",
       "title": "Mint unbacked wrapped ETH on Solana",
       "description": "The bridge accepted the forged message and minted wrapped ETH that was not backed by locked ETH on Ethereum.",
-      "confidence": "confirmed_fact"
+      "confidence": "confirmed_fact",
+      "evidenceRefs": ["ev_2", "ev_3"]
     },
     {
       "id": "step_4",
       "title": "Bridge and extract value",
       "description": "The attacker moved part of the newly minted assets through markets and cross-chain paths to extract value before the bridge was halted.",
-      "confidence": "high_confidence_inference"
+      "confidence": "high_confidence_inference",
+      "evidenceRefs": ["ev_1", "ev_3"]
     }
   ],
   "evidence": [

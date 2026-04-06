@@ -113,6 +113,7 @@ export type IncidentRecord = {
     title: string;
     description: string;
     confidence: ConfidenceLevel;
+    evidenceRefs: string[];
   }>;
   evidence: Array<{
     id: string;

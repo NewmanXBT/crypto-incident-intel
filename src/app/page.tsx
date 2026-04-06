@@ -1,24 +1,28 @@
 import Link from "next/link";
+import type { Route } from "next";
 import { sampleIncident } from "@/lib/sample-data";
-import { getFeaturedIncidents } from "@/lib/incidents";
+import { getFeaturedIncidents } from "@/lib/incident-repository";
 
-const entryPoints = [
+const entryPoints: Array<{ href: Route; label: string; description: string }> = [
   {
-    href: "/search",
+    href: "/search" as Route,
     label: "Browse Seed Incidents",
     description: "Open the search-first incident explorer over the seed dataset."
   },
   {
-    href: `/incidents/${sampleIncident.slug}`,
-    label: "Open Sample Incident",
-    description: "Read the canonical incident page skeleton backed by the sample record."
-  },
-  {
-    href: "/protocol-risk",
+    href: "/protocol-risk" as Route,
     label: "Open Protocol Risk Surface",
     description: "See the placeholder structure for the protocol risk workflow."
   }
 ];
+
+if (sampleIncident) {
+  entryPoints.splice(1, 0, {
+    href: `/incidents/${sampleIncident.slug}` as Route,
+    label: "Open Sample Incident",
+    description: "Read the canonical incident page skeleton backed by the sample record."
+  });
+}
 
 const featuredIncidents = getFeaturedIncidents().slice(0, 3);
 
@@ -70,7 +74,11 @@ export default function HomePage() {
         <h2>Seed Incidents</h2>
         <div className="resultStack">
           {featuredIncidents.map((incident) => (
-            <Link className="resultCard" key={incident.id} href={`/incidents/${incident.slug}`}>
+            <Link
+              className="resultCard"
+              key={incident.id}
+              href={`/incidents/${incident.slug}` as Route}
+            >
               <div className="resultHeader">
                 <div>
                   <p className="eyebrow compact">{incident.protocol.name}</p>

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getIncidentBySlug } from "@/lib/incidents";
+import { getIncidentBySlug, getSimilarIncidents } from "@/lib/incident-repository";
 
 type IncidentPageProps = {
   params: Promise<{ slug: string }>;
@@ -8,6 +8,7 @@ type IncidentPageProps = {
 export default async function IncidentPage({ params }: IncidentPageProps) {
   const { slug } = await params;
   const incident = getIncidentBySlug(slug);
+  const similarIncidents = getSimilarIncidents(slug, 3);
 
   if (!incident) {
     notFound();
@@ -79,9 +80,11 @@ export default async function IncidentPage({ params }: IncidentPageProps) {
         <article className="panel">
           <h2>Similar Incident Hints</h2>
           <ul className="list">
-            {incident.similarIncidentHints.map((hint) => (
-              <li key={hint}>{hint}</li>
-            ))}
+            {similarIncidents.length > 0
+              ? similarIncidents.map((relatedIncident) => (
+                  <li key={relatedIncident.id}>{relatedIncident.title}</li>
+                ))
+              : incident.similarIncidentHints.map((hint) => <li key={hint}>{hint}</li>)}
           </ul>
         </article>
       </section>

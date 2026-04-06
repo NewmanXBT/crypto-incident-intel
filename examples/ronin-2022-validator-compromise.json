@@ -46,19 +46,22 @@
       "id": "step_1",
       "title": "Compromise validator environment",
       "description": "Attackers obtained control over enough validator keys to satisfy the bridge's approval threshold.",
-      "confidence": "confirmed_fact"
+      "confidence": "confirmed_fact",
+      "evidenceRefs": ["ev_1"]
     },
     {
       "id": "step_2",
       "title": "Approve fraudulent withdrawals",
       "description": "With quorum control, the attacker submitted withdrawals that appeared valid to the bridge's trust model.",
-      "confidence": "confirmed_fact"
+      "confidence": "confirmed_fact",
+      "evidenceRefs": ["ev_1", "ev_3"]
     },
     {
       "id": "step_3",
       "title": "Move funds out before detection",
       "description": "The fraudulent transfers drained ETH and USDC before the issue was discovered days later.",
-      "confidence": "confirmed_fact"
+      "confidence": "confirmed_fact",
+      "evidenceRefs": ["ev_2", "ev_3"]
     }
   ],
   "evidence": [

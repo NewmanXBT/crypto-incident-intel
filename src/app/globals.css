@@ -1,12 +1,14 @@
 :root {
   color-scheme: light;
-  --bg: #f4efe6;
-  --panel: rgba(255, 251, 245, 0.88);
-  --line: rgba(49, 37, 29, 0.14);
-  --text: #221a15;
-  --muted: #6d5a4f;
-  --accent: #9b3d23;
-  --shadow: 0 24px 60px rgba(34, 26, 21, 0.08);
+  --bg: #f3efe6;
+  --panel: rgba(251, 248, 242, 0.92);
+  --line: #d9d1c5;
+  --text: #1f1a17;
+  --muted: #75685c;
+  --accent: #1859d1;
+  --signal: #b85f3d;
+  --shadow: 0 18px 40px rgba(20, 16, 12, 0.06);
+  --input: #fffdf9;
 }
 
 * {
@@ -14,9 +16,9 @@
 }
 
 html {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
   background:
-    radial-gradient(circle at top, rgba(155, 61, 35, 0.08), transparent 28%),
+    radial-gradient(circle at top, rgba(184, 95, 61, 0.08), transparent 28%),
     linear-gradient(180deg, #f8f2ea 0%, var(--bg) 100%);
 }
 
@@ -42,7 +44,6 @@ a {
   border: 1px solid var(--line);
   background: var(--panel);
   box-shadow: var(--shadow);
-  backdrop-filter: blur(14px);
 }
 
 .hero,
@@ -103,7 +104,7 @@ a {
   border: 1px solid var(--line);
   border-radius: 20px;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 253, 249, 0.88);
 }
 
 .resultHeader,
@@ -119,7 +120,8 @@ a {
 
 .resultLoss {
   margin: 0;
-  color: var(--accent);
+  color: var(--signal);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
   font-size: 0.92rem;
   font-weight: 700;
   text-align: right;
@@ -151,9 +153,67 @@ a {
   top: 20px;
 }
 
+.filterForm,
+.field,
+.reasonBlock {
+  display: grid;
+  gap: 12px;
+}
+
+.filterForm {
+  margin-top: 8px;
+}
+
+.fieldLabel {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 10px 12px;
+  background: var(--input);
+  color: var(--text);
+  font: inherit;
+}
+
+.field input:focus,
+.field select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(24, 89, 209, 0.14);
+}
+
+.buttonPrimary {
+  border: 1px solid var(--accent);
+  border-radius: 14px;
+  padding: 10px 16px;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.resultColumn {
+  display: grid;
+  gap: 20px;
+}
+
+.compactList {
+  margin-top: 0;
+  padding-left: 18px;
+}
+
 .eyebrow {
   margin: 0 0 12px;
-  color: var(--accent);
+  color: var(--signal);
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -171,12 +231,14 @@ dl {
 
 h1 {
   margin-bottom: 12px;
+  font-family: "Iowan Old Style", Georgia, serif;
   font-size: clamp(2.6rem, 5vw, 4.8rem);
   line-height: 0.96;
 }
 
 h2 {
   margin-bottom: 16px;
+  font-family: "Iowan Old Style", Georgia, serif;
   font-size: 1.3rem;
 }
 

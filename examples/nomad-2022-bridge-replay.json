@@ -46,19 +46,22 @@
       "id": "step_1",
       "title": "Trusted root initialized incorrectly",
       "description": "A contract update left the Replica system accepting an invalid root as if it were trusted, weakening message validation.",
-      "confidence": "confirmed_fact"
+      "confidence": "confirmed_fact",
+      "evidenceRefs": ["ev_1", "ev_2"]
     },
     {
       "id": "step_2",
       "title": "First attacker proves arbitrary withdrawal path",
       "description": "Once one malicious withdrawal succeeded, the calldata pattern became visible and easy for others to imitate.",
-      "confidence": "confirmed_fact"
+      "confidence": "confirmed_fact",
+      "evidenceRefs": ["ev_2", "ev_3"]
     },
     {
       "id": "step_3",
       "title": "Crowd replay drain accelerates losses",
       "description": "Multiple participants copied and modified successful transactions, rapidly draining assets from the bridge's liquidity.",
-      "confidence": "confirmed_fact"
+      "confidence": "confirmed_fact",
+      "evidenceRefs": ["ev_1", "ev_3"]
     }
   ],
   "evidence": [

@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { getProtocolRiskAnalogs } from "@/lib/incidents";
+import type { Route } from "next";
+import { getProtocolRiskAnalogs } from "@/lib/incident-repository";
 
 const checklist = [
   "Identify privileged roles and upgrade paths.",
@@ -45,7 +46,11 @@ export default function ProtocolRiskPage() {
         <h2>Current Analog Seeds</h2>
         <div className="resultStack">
           {analogs.map((incident) => (
-            <Link className="resultCard" key={incident.id} href={`/incidents/${incident.slug}`}>
+            <Link
+              className="resultCard"
+              key={incident.id}
+              href={`/incidents/${incident.slug}` as Route}
+            >
               <div className="resultHeader">
                 <div>
                   <p className="eyebrow compact">{incident.protocol.name}</p>

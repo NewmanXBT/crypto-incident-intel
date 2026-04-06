@@ -198,7 +198,7 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "title", "description", "confidence"],
+        "required": ["id", "title", "description", "confidence", "evidenceRefs"],
         "properties": {
           "id": { "type": "string", "minLength": 1 },
           "title": { "type": "string", "minLength": 1 },
@@ -206,6 +206,11 @@
           "confidence": {
             "type": "string",
             "enum": ["confirmed_fact", "high_confidence_inference", "open_question"]
+          },
+          "evidenceRefs": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
           }
         }
       }
