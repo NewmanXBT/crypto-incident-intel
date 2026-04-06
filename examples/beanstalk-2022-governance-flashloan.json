@@ -1,0 +1,95 @@
+{
+  "id": "inc_beanstalk_2022_governance_flashloan",
+  "slug": "beanstalk-2022-governance-flashloan",
+  "title": "Beanstalk Governance Flash-Loan Exploit",
+  "summary": "Beanstalk was drained for roughly $182M after an attacker used flash-loaned capital to acquire temporary governance supermajority, pass a malicious proposal, and immediately execute it through the protocol's emergency path.",
+  "status": "closed",
+  "occurredAt": "2022-04-17T12:24:00Z",
+  "discoveredAt": "2022-04-17T18:30:00Z",
+  "protocol": {
+    "name": "Beanstalk",
+    "category": "stablecoin",
+    "website": "https://bean.money"
+  },
+  "chainsInvolved": ["Ethereum"],
+  "loss": {
+    "usd": 182000000,
+    "recoveredUsd": 0,
+    "netLossUsd": 182000000
+  },
+  "classification": {
+    "primaryAttackType": "governance_takeover",
+    "rootCauseCategory": "governance_design_failure",
+    "initialAccessVector": "flash-loan-funded voting power concentration",
+    "privilegeGained": "temporary governance supermajority and emergency proposal execution rights",
+    "exploitMechanism": "malicious governance proposal executed via emergency path after flash-loan-assisted vote capture"
+  },
+  "impactScope": ["protocol_treasury", "lp_funds", "protocol_trust"],
+  "response": {
+    "summary": "Beanstalk acknowledged the exploit, disabled governance, pursued community-led recovery planning, and later relaunched with redesigned controls.",
+    "actions": [
+      "disabled governance operations",
+      "published exploit acknowledgements",
+      "pursued recovery and relaunch planning",
+      "reworked governance assumptions after the exploit"
+    ]
+  },
+  "review": {
+    "status": "published",
+    "confidenceScore": 0.92,
+    "sourceCount": 3,
+    "evidenceCoverageRatio": 0.88,
+    "lastReviewedAt": "2026-04-06T12:00:00Z"
+  },
+  "attackPath": [
+    {
+      "id": "step_1",
+      "title": "Prepare malicious governance proposal",
+      "description": "The attacker created a proposal that embedded fund-draining behavior behind governance execution.",
+      "confidence": "confirmed_fact",
+      "evidenceRefs": ["ev_1", "ev_2"]
+    },
+    {
+      "id": "step_2",
+      "title": "Borrow temporary voting power with flash loans",
+      "description": "Massive flash-loaned liquidity was converted into governance influence, giving the attacker the supermajority needed to force approval.",
+      "confidence": "confirmed_fact",
+      "evidenceRefs": ["ev_1", "ev_2", "ev_3"]
+    },
+    {
+      "id": "step_3",
+      "title": "Execute proposal through emergency governance path",
+      "description": "The emergency execution path allowed the malicious proposal to be committed immediately, draining protocol-controlled assets.",
+      "confidence": "confirmed_fact",
+      "evidenceRefs": ["ev_1", "ev_2"]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_1",
+      "sourceName": "CertiK Beanstalk Exploit Review",
+      "sourceUrl": "https://www.certik.com/resources/blog/revisiting-beanstalk-farms-exploit",
+      "claimSupported": "The exploit relied on flash-loan-amplified governance control and malicious proposal execution, causing losses around $182M.",
+      "evidenceType": "research"
+    },
+    {
+      "id": "ev_2",
+      "sourceName": "Immunefi Beanstalk Governance Attack Analysis",
+      "sourceUrl": "https://medium.com/immunefi/hack-analysis-beanstalk-governance-attack-april-2022-f42788fc821e",
+      "claimSupported": "The attacker used a one-transaction governance capture flow to pass and execute a malicious proposal.",
+      "evidenceType": "research"
+    },
+    {
+      "id": "ev_3",
+      "sourceName": "Rekt Coverage",
+      "sourceUrl": "https://rekt.news/beanstalk-rekt/",
+      "claimSupported": "Beanstalk lost roughly $182M and became one of the clearest examples of flash-loan governance abuse.",
+      "evidenceType": "media"
+    }
+  ],
+  "similarIncidentHints": [
+    "governance capture incidents",
+    "flash-loan-assisted voting attacks",
+    "upgrade and admin path abuse through governance"
+  ]
+}

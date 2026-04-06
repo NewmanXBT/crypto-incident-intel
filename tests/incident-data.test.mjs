@@ -13,7 +13,7 @@ test("incident dataset validates successfully", () => {
     encoding: "utf8"
   });
 
-  assert.match(output, /Validated 3 incident files\./);
+  assert.match(output, /Validated 5 incident files\./);
 });
 
 test("validation script fails on broken evidence reference", () => {
