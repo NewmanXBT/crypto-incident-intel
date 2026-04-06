@@ -1,4 +1,7 @@
+import Link from "next/link";
+import type { Route } from "next";
 import { notFound } from "next/navigation";
+import { formatTokenLabel } from "@/lib/format";
 import { getIncidentBySlug, getSimilarIncidents } from "@/lib/incident-repository";
 
 type IncidentPageProps = {
@@ -29,15 +32,15 @@ export default async function IncidentPage({ params }: IncidentPageProps) {
           </div>
           <div>
             <dt>Primary Type</dt>
-            <dd>{incident.classification.primaryAttackType}</dd>
+            <dd>{formatTokenLabel(incident.classification.primaryAttackType)}</dd>
           </div>
           <div>
             <dt>Root Cause</dt>
-            <dd>{incident.classification.rootCauseCategory}</dd>
+            <dd>{formatTokenLabel(incident.classification.rootCauseCategory)}</dd>
           </div>
           <div>
             <dt>Status</dt>
-            <dd>{incident.status}</dd>
+            <dd>{formatTokenLabel(incident.status)}</dd>
           </div>
         </dl>
       </section>
@@ -57,10 +60,13 @@ export default async function IncidentPage({ params }: IncidentPageProps) {
 
         <article className="panel">
           <h2>Evidence</h2>
-          <ul className="list">
+          <ul className="list evidenceList">
             {incident.evidence.map((item) => (
               <li key={item.id}>
-                <strong>{item.sourceName}</strong>
+                <a className="evidenceLink" href={item.sourceUrl} rel="noreferrer" target="_blank">
+                  <strong>{item.sourceName}</strong>
+                </a>
+                <p className="evidenceMeta">{formatTokenLabel(item.evidenceType)}</p>
                 <p>{item.claimSupported}</p>
               </li>
             ))}
@@ -82,7 +88,11 @@ export default async function IncidentPage({ params }: IncidentPageProps) {
           <ul className="list">
             {similarIncidents.length > 0
               ? similarIncidents.map((relatedIncident) => (
-                  <li key={relatedIncident.id}>{relatedIncident.title}</li>
+                  <li key={relatedIncident.id}>
+                    <Link href={`/incidents/${relatedIncident.slug}` as Route}>
+                      {relatedIncident.title}
+                    </Link>
+                  </li>
                 ))
               : incident.similarIncidentHints.map((hint) => <li key={hint}>{hint}</li>)}
           </ul>

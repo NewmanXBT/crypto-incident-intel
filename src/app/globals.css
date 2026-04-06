@@ -172,6 +172,25 @@ a {
   text-transform: uppercase;
 }
 
+.evidenceList li + li {
+  margin-top: 16px;
+}
+
+.evidenceLink {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.evidenceMeta {
+  margin: 4px 0 6px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .field input,
 .field select {
   width: 100%;

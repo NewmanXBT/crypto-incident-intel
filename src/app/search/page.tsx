@@ -5,6 +5,7 @@ import {
   PROTOCOL_CATEGORIES,
   ROOT_CAUSE_CATEGORIES
 } from "@/lib/incident-constants";
+import { formatTokenLabel } from "@/lib/format";
 import {
   searchIncidents,
   type SearchFilters
@@ -44,10 +45,10 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
     <main className="shell">
       <section className="hero">
         <p className="eyebrow">Explore Incidents</p>
-        <h1>Search The Seed Dataset</h1>
+        <h1>Crypto Incident Intelligence</h1>
         <p className="lede">
-          A search-first view over normalized incidents. This slice is still static, but it already
-          shows the intended density: attack type, root cause, loss, and why a record matters.
+          Search real exploit incidents by attack pattern, root cause, chain, and loss size. This
+          is the main research surface for the product.
         </p>
       </section>
 
@@ -71,7 +72,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                 <option value="">All</option>
                 {ATTACK_TYPES.map((attackType) => (
                   <option key={attackType} value={attackType}>
-                    {attackType}
+                    {formatTokenLabel(attackType)}
                   </option>
                 ))}
               </select>
@@ -83,7 +84,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                 <option value="">All</option>
                 {ROOT_CAUSE_CATEGORIES.map((rootCause) => (
                   <option key={rootCause} value={rootCause}>
-                    {rootCause}
+                    {formatTokenLabel(rootCause)}
                   </option>
                 ))}
               </select>
@@ -95,7 +96,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                 <option value="">All</option>
                 {PROTOCOL_CATEGORIES.map((protocolCategory) => (
                   <option key={protocolCategory} value={protocolCategory}>
-                    {protocolCategory}
+                    {formatTokenLabel(protocolCategory)}
                   </option>
                 ))}
               </select>
@@ -137,7 +138,9 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
               >
                 <div className="resultHeader">
                   <div>
-                    <p className="eyebrow compact">{incident.protocol.category}</p>
+                    <p className="eyebrow compact">
+                      {formatTokenLabel(incident.protocol.category)}
+                    </p>
                     <h2>{incident.title}</h2>
                   </div>
                   <p className="resultLoss">${incident.loss.usd.toLocaleString()}</p>
@@ -148,11 +151,11 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                 <dl className="metaStrip">
                   <div>
                     <dt>Attack Type</dt>
-                    <dd>{incident.classification.primaryAttackType}</dd>
+                    <dd>{formatTokenLabel(incident.classification.primaryAttackType)}</dd>
                   </div>
                   <div>
                     <dt>Root Cause</dt>
-                    <dd>{incident.classification.rootCauseCategory}</dd>
+                    <dd>{formatTokenLabel(incident.classification.rootCauseCategory)}</dd>
                   </div>
                   <div>
                     <dt>Privilege Path</dt>
