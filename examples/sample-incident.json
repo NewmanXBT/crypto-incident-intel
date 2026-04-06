@@ -1,0 +1,98 @@
+{
+  "id": "inc_wormhole_2022_guardian_bypass",
+  "slug": "wormhole-2022-guardian-bypass",
+  "title": "Wormhole Guardian Signature Verification Failure",
+  "summary": "An attacker forged a valid-looking guardian approval path and minted wrapped ETH on Solana without locking ETH on Ethereum, leading to roughly $326M in losses before Jump backstopped the hole.",
+  "status": "closed",
+  "occurredAt": "2022-02-02T17:24:00Z",
+  "discoveredAt": "2022-02-02T17:45:00Z",
+  "protocol": {
+    "name": "Wormhole",
+    "category": "bridge",
+    "website": "https://wormhole.com"
+  },
+  "chainsInvolved": ["Solana", "Ethereum"],
+  "loss": {
+    "usd": 326000000,
+    "recoveredUsd": 326000000,
+    "netLossUsd": 0
+  },
+  "classification": {
+    "primaryAttackType": "signature_verification_bug",
+    "rootCauseCategory": "incomplete_input_validation",
+    "initialAccessVector": "forged guardian verification path",
+    "privilegeGained": "ability to mint wrapped assets without a valid cross-chain message",
+    "exploitMechanism": "signature verification bypass in Solana bridge contract path"
+  },
+  "impactScope": ["bridged_assets", "protocol_trust", "user_redemption_risk"],
+  "response": {
+    "summary": "The bridge was paused, patched, and recapitalized by Jump so the wrapped asset remained redeemable.",
+    "actions": [
+      "paused the bridge",
+      "patched the verification bug",
+      "backstopped the missing ETH",
+      "published technical explanations"
+    ]
+  },
+  "review": {
+    "status": "published",
+    "confidenceScore": 0.93,
+    "sourceCount": 3,
+    "evidenceCoverageRatio": 0.91,
+    "lastReviewedAt": "2026-04-06T10:00:00Z"
+  },
+  "attackPath": [
+    {
+      "id": "step_1",
+      "title": "Craft malicious Solana message",
+      "description": "The attacker prepared a cross-chain message payload that exploited a verification path expected to enforce guardian authenticity.",
+      "confidence": "confirmed_fact"
+    },
+    {
+      "id": "step_2",
+      "title": "Bypass guardian signature checks",
+      "description": "A verification bug allowed the attacker to satisfy the bridge's acceptance logic without a legitimately approved guardian set message.",
+      "confidence": "confirmed_fact"
+    },
+    {
+      "id": "step_3",
+      "title": "Mint unbacked wrapped ETH on Solana",
+      "description": "The bridge accepted the forged message and minted wrapped ETH that was not backed by locked ETH on Ethereum.",
+      "confidence": "confirmed_fact"
+    },
+    {
+      "id": "step_4",
+      "title": "Bridge and extract value",
+      "description": "The attacker moved part of the newly minted assets through markets and cross-chain paths to extract value before the bridge was halted.",
+      "confidence": "high_confidence_inference"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_1",
+      "sourceName": "Wormhole Incident Update",
+      "sourceUrl": "https://wormholenetwork.com/en/wormhole-incident-2022-02-02/",
+      "claimSupported": "The bridge was paused and later restored after remediation.",
+      "evidenceType": "official_statement"
+    },
+    {
+      "id": "ev_2",
+      "sourceName": "Wormhole Postmortem",
+      "sourceUrl": "https://wormholenetwork.com/en/wormhole-postmortem-2022-02-02/",
+      "claimSupported": "The exploit path relied on a signature verification issue in the Solana-side message flow.",
+      "evidenceType": "postmortem"
+    },
+    {
+      "id": "ev_3",
+      "sourceName": "Bridge Exploit Analysis",
+      "sourceUrl": "https://rekt.news/wormhole-rekt/",
+      "claimSupported": "The attack led to roughly $326M in losses and became one of the largest bridge incidents.",
+      "evidenceType": "media"
+    }
+  ],
+  "similarIncidentHints": [
+    "Nomad replay-style bridge trust failure",
+    "Ronin validator / trust boundary failure",
+    "Multichain trust and cross-chain control incidents"
+  ]
+}

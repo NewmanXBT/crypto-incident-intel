@@ -1,0 +1,237 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://crypto-incident-intel.dev/schemas/incident.schema.json",
+  "title": "Canonical Incident",
+  "description": "Normalized crypto exploit/theft incident record for search, evidence review, and grounded retrieval.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "slug",
+    "title",
+    "summary",
+    "status",
+    "occurredAt",
+    "discoveredAt",
+    "protocol",
+    "chainsInvolved",
+    "loss",
+    "classification",
+    "impactScope",
+    "response",
+    "review",
+    "attackPath",
+    "evidence",
+    "similarIncidentHints"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^inc_[a-z0-9_]+$"
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": ["open", "partially_recovered", "recovered", "closed", "disputed"]
+    },
+    "occurredAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "discoveredAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "protocol": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "category"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "category": {
+          "type": "string",
+          "enum": [
+            "dex",
+            "lending",
+            "bridge",
+            "perp",
+            "liquid_staking",
+            "wallet",
+            "custody",
+            "stablecoin",
+            "infra",
+            "oracle",
+            "nft",
+            "cex"
+          ]
+        },
+        "website": { "type": "string", "format": "uri" }
+      }
+    },
+    "chainsInvolved": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "loss": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["usd", "recoveredUsd", "netLossUsd"],
+      "properties": {
+        "usd": { "type": "number", "minimum": 0 },
+        "recoveredUsd": { "type": "number", "minimum": 0 },
+        "netLossUsd": { "type": "number", "minimum": 0 }
+      }
+    },
+    "classification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "primaryAttackType",
+        "rootCauseCategory",
+        "initialAccessVector",
+        "privilegeGained",
+        "exploitMechanism"
+      ],
+      "properties": {
+        "primaryAttackType": {
+          "type": "string",
+          "enum": [
+            "private_key_compromise",
+            "multisig_compromise",
+            "governance_takeover",
+            "upgrade_authority_abuse",
+            "smart_contract_bug",
+            "reentrancy",
+            "access_control_failure",
+            "oracle_manipulation",
+            "flash_loan_assisted",
+            "bridge_validation_failure",
+            "signature_verification_bug",
+            "frontend_compromise",
+            "supply_chain_compromise",
+            "social_engineering",
+            "insider_abuse",
+            "operational_error"
+          ]
+        },
+        "rootCauseCategory": {
+          "type": "string",
+          "enum": [
+            "key_management_failure",
+            "governance_design_failure",
+            "upgrade_centralization",
+            "authz_logic_failure",
+            "accounting_logic_failure",
+            "external_dependency_failure",
+            "unsafe_default_configuration",
+            "incomplete_input_validation",
+            "offchain_process_failure",
+            "incident_response_failure"
+          ]
+        },
+        "initialAccessVector": { "type": "string", "minLength": 1 },
+        "privilegeGained": { "type": "string", "minLength": 1 },
+        "exploitMechanism": { "type": "string", "minLength": 1 }
+      }
+    },
+    "impactScope": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "response": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["summary", "actions"],
+      "properties": {
+        "summary": { "type": "string", "minLength": 1 },
+        "actions": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "confidenceScore", "sourceCount", "evidenceCoverageRatio"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["new", "extracted", "in_review", "approved", "published", "revised"]
+        },
+        "confidenceScore": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sourceCount": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "evidenceCoverageRatio": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "lastReviewedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "attackPath": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "title", "description", "confidence"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "title": { "type": "string", "minLength": 1 },
+          "description": { "type": "string", "minLength": 1 },
+          "confidence": {
+            "type": "string",
+            "enum": ["confirmed_fact", "high_confidence_inference", "open_question"]
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "sourceName", "sourceUrl", "claimSupported", "evidenceType"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "sourceName": { "type": "string", "minLength": 1 },
+          "sourceUrl": { "type": "string", "format": "uri" },
+          "claimSupported": { "type": "string", "minLength": 1 },
+          "evidenceType": {
+            "type": "string",
+            "enum": ["official_statement", "postmortem", "onchain", "audit", "media", "research"]
+          }
+        }
+      }
+    },
+    "similarIncidentHints": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}
