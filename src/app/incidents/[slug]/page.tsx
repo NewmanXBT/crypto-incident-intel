@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { sampleIncident } from "@/lib/sample-data";
+import { getIncidentBySlug } from "@/lib/incidents";
 
 type IncidentPageProps = {
   params: Promise<{ slug: string }>;
@@ -7,8 +7,9 @@ type IncidentPageProps = {
 
 export default async function IncidentPage({ params }: IncidentPageProps) {
   const { slug } = await params;
+  const incident = getIncidentBySlug(slug);
 
-  if (slug !== sampleIncident.slug) {
+  if (!incident) {
     notFound();
   }
 
@@ -16,26 +17,26 @@ export default async function IncidentPage({ params }: IncidentPageProps) {
     <main className="shell detailShell">
       <section className="detailHeader">
         <div>
-          <p className="eyebrow">{sampleIncident.protocol.name}</p>
-          <h1>{sampleIncident.title}</h1>
-          <p className="lede">{sampleIncident.summary}</p>
+          <p className="eyebrow">{incident.protocol.name}</p>
+          <h1>{incident.title}</h1>
+          <p className="lede">{incident.summary}</p>
         </div>
         <dl className="snapshot">
           <div>
             <dt>Loss</dt>
-            <dd>${sampleIncident.loss.usd.toLocaleString()}</dd>
+            <dd>${incident.loss.usd.toLocaleString()}</dd>
           </div>
           <div>
             <dt>Primary Type</dt>
-            <dd>{sampleIncident.classification.primaryAttackType}</dd>
+            <dd>{incident.classification.primaryAttackType}</dd>
           </div>
           <div>
             <dt>Root Cause</dt>
-            <dd>{sampleIncident.classification.rootCauseCategory}</dd>
+            <dd>{incident.classification.rootCauseCategory}</dd>
           </div>
           <div>
             <dt>Status</dt>
-            <dd>{sampleIncident.status}</dd>
+            <dd>{incident.status}</dd>
           </div>
         </dl>
       </section>
@@ -44,7 +45,7 @@ export default async function IncidentPage({ params }: IncidentPageProps) {
         <article className="panel">
           <h2>Attack Path</h2>
           <ol className="pathList">
-            {sampleIncident.attackPath.map((step) => (
+            {incident.attackPath.map((step) => (
               <li key={step.id}>
                 <strong>{step.title}</strong>
                 <p>{step.description}</p>
@@ -56,11 +57,30 @@ export default async function IncidentPage({ params }: IncidentPageProps) {
         <article className="panel">
           <h2>Evidence</h2>
           <ul className="list">
-            {sampleIncident.evidence.map((item) => (
+            {incident.evidence.map((item) => (
               <li key={item.id}>
                 <strong>{item.sourceName}</strong>
                 <p>{item.claimSupported}</p>
               </li>
+            ))}
+          </ul>
+        </article>
+
+        <article className="panel">
+          <h2>Response</h2>
+          <p className="cardCopy">{incident.response.summary}</p>
+          <ul className="list">
+            {incident.response.actions.map((action) => (
+              <li key={action}>{action}</li>
+            ))}
+          </ul>
+        </article>
+
+        <article className="panel">
+          <h2>Similar Incident Hints</h2>
+          <ul className="list">
+            {incident.similarIncidentHints.map((hint) => (
+              <li key={hint}>{hint}</li>
             ))}
           </ul>
         </article>

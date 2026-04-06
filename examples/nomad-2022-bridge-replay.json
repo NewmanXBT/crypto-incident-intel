@@ -1,0 +1,92 @@
+{
+  "id": "inc_nomad_2022_replay",
+  "slug": "nomad-2022-replay",
+  "title": "Nomad Replica Initialization Replay Exploit",
+  "summary": "A flawed Replica contract initialization allowed arbitrary messages to be treated as valid, turning the exploit into a public replay drain that extracted roughly $190M before partial recoveries.",
+  "status": "partially_recovered",
+  "occurredAt": "2022-08-01T21:32:00Z",
+  "discoveredAt": "2022-08-01T21:40:00Z",
+  "protocol": {
+    "name": "Nomad",
+    "category": "bridge",
+    "website": "https://nomad.xyz"
+  },
+  "chainsInvolved": ["Ethereum", "Moonbeam", "Evmos", "Milkomeda"],
+  "loss": {
+    "usd": 190000000,
+    "recoveredUsd": 36000000,
+    "netLossUsd": 154000000
+  },
+  "classification": {
+    "primaryAttackType": "bridge_validation_failure",
+    "rootCauseCategory": "unsafe_default_configuration",
+    "initialAccessVector": "invalid root accepted as trusted",
+    "privilegeGained": "ability to replay arbitrary bridge messages as valid",
+    "exploitMechanism": "misconfigured initialization caused broad message acceptance"
+  },
+  "impactScope": ["bridged_assets", "user_redemption_risk", "protocol_trust"],
+  "response": {
+    "summary": "Nomad paused bridge activity, coordinated recovery efforts, and publicly tracked whitehat returns, but the bridge failure remained a defining trust breakdown.",
+    "actions": [
+      "paused bridge messaging",
+      "coordinated whitehat recovery",
+      "published incident updates",
+      "worked with ecosystem partners on tracing"
+    ]
+  },
+  "review": {
+    "status": "published",
+    "confidenceScore": 0.94,
+    "sourceCount": 3,
+    "evidenceCoverageRatio": 0.89,
+    "lastReviewedAt": "2026-04-06T10:00:00Z"
+  },
+  "attackPath": [
+    {
+      "id": "step_1",
+      "title": "Trusted root initialized incorrectly",
+      "description": "A contract update left the Replica system accepting an invalid root as if it were trusted, weakening message validation.",
+      "confidence": "confirmed_fact"
+    },
+    {
+      "id": "step_2",
+      "title": "First attacker proves arbitrary withdrawal path",
+      "description": "Once one malicious withdrawal succeeded, the calldata pattern became visible and easy for others to imitate.",
+      "confidence": "confirmed_fact"
+    },
+    {
+      "id": "step_3",
+      "title": "Crowd replay drain accelerates losses",
+      "description": "Multiple participants copied and modified successful transactions, rapidly draining assets from the bridge's liquidity.",
+      "confidence": "confirmed_fact"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_1",
+      "sourceName": "Nomad Incident Update",
+      "sourceUrl": "https://medium.com/nomad-xyz-blog/nomad-bridge-incident-analysis-9fd3b6c6f8f8",
+      "claimSupported": "The bridge was paused and the team coordinated recovery after a Replica contract issue allowed invalid messages.",
+      "evidenceType": "official_statement"
+    },
+    {
+      "id": "ev_2",
+      "sourceName": "Nomad Post-Incident Analysis",
+      "sourceUrl": "https://www.coinbase.com/blog/nomad-bridge-incident-analysis",
+      "claimSupported": "The exploit stemmed from a trust root issue that made copied withdrawals broadly executable.",
+      "evidenceType": "research"
+    },
+    {
+      "id": "ev_3",
+      "sourceName": "Rekt Coverage",
+      "sourceUrl": "https://rekt.news/nomad-rekt/",
+      "claimSupported": "The incident grew into a mass replay drain with losses around $190M before partial recoveries.",
+      "evidenceType": "media"
+    }
+  ],
+  "similarIncidentHints": [
+    "Wormhole verification failure",
+    "Other bridge trust-boundary incidents",
+    "Upgradeable validation-path regressions"
+  ]
+}

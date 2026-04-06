@@ -1,7 +1,13 @@
 import Link from "next/link";
 import { sampleIncident } from "@/lib/sample-data";
+import { getFeaturedIncidents } from "@/lib/incidents";
 
 const entryPoints = [
+  {
+    href: "/search",
+    label: "Browse Seed Incidents",
+    description: "Open the search-first incident explorer over the seed dataset."
+  },
   {
     href: `/incidents/${sampleIncident.slug}`,
     label: "Open Sample Incident",
@@ -13,6 +19,8 @@ const entryPoints = [
     description: "See the placeholder structure for the protocol risk workflow."
   }
 ];
+
+const featuredIncidents = getFeaturedIncidents().slice(0, 3);
 
 export default function HomePage() {
   return (
@@ -53,6 +61,24 @@ export default function HomePage() {
             <Link className="cardLink" key={entry.href} href={entry.href}>
               <span className="cardLabel">{entry.label}</span>
               <span className="cardCopy">{entry.description}</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="panel">
+        <h2>Seed Incidents</h2>
+        <div className="resultStack">
+          {featuredIncidents.map((incident) => (
+            <Link className="resultCard" key={incident.id} href={`/incidents/${incident.slug}`}>
+              <div className="resultHeader">
+                <div>
+                  <p className="eyebrow compact">{incident.protocol.name}</p>
+                  <h2>{incident.title}</h2>
+                </div>
+                <p className="resultLoss">${incident.loss.usd.toLocaleString()}</p>
+              </div>
+              <p className="cardCopy">{incident.summary}</p>
             </Link>
           ))}
         </div>

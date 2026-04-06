@@ -1,0 +1,92 @@
+{
+  "id": "inc_ronin_2022_validator_compromise",
+  "slug": "ronin-2022-validator-compromise",
+  "title": "Ronin Validator Key Compromise",
+  "summary": "Attackers compromised enough validator keys to approve fraudulent bridge withdrawals from Ronin, resulting in roughly $624M in losses and exposing the bridge's concentrated trust model.",
+  "status": "partially_recovered",
+  "occurredAt": "2022-03-23T09:00:00Z",
+  "discoveredAt": "2022-03-29T00:00:00Z",
+  "protocol": {
+    "name": "Ronin",
+    "category": "bridge",
+    "website": "https://roninchain.com"
+  },
+  "chainsInvolved": ["Ronin", "Ethereum"],
+  "loss": {
+    "usd": 624000000,
+    "recoveredUsd": 30000000,
+    "netLossUsd": 594000000
+  },
+  "classification": {
+    "primaryAttackType": "multisig_compromise",
+    "rootCauseCategory": "key_management_failure",
+    "initialAccessVector": "compromise of validator signing infrastructure",
+    "privilegeGained": "bridge withdrawal approval quorum",
+    "exploitMechanism": "control of enough validators to authorize fraudulent withdrawals"
+  },
+  "impactScope": ["bridged_assets", "user_redemption_risk", "protocol_trust"],
+  "response": {
+    "summary": "The bridge was halted, validator set and operational controls were rebuilt, and the ecosystem later pursued recovery and reimbursement.",
+    "actions": [
+      "halted the bridge",
+      "rotated validator controls",
+      "expanded validator set",
+      "worked on user reimbursement"
+    ]
+  },
+  "review": {
+    "status": "published",
+    "confidenceScore": 0.95,
+    "sourceCount": 3,
+    "evidenceCoverageRatio": 0.92,
+    "lastReviewedAt": "2026-04-06T10:00:00Z"
+  },
+  "attackPath": [
+    {
+      "id": "step_1",
+      "title": "Compromise validator environment",
+      "description": "Attackers obtained control over enough validator keys to satisfy the bridge's approval threshold.",
+      "confidence": "confirmed_fact"
+    },
+    {
+      "id": "step_2",
+      "title": "Approve fraudulent withdrawals",
+      "description": "With quorum control, the attacker submitted withdrawals that appeared valid to the bridge's trust model.",
+      "confidence": "confirmed_fact"
+    },
+    {
+      "id": "step_3",
+      "title": "Move funds out before detection",
+      "description": "The fraudulent transfers drained ETH and USDC before the issue was discovered days later.",
+      "confidence": "confirmed_fact"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev_1",
+      "sourceName": "Ronin Postmortem",
+      "sourceUrl": "https://roninchain.com/blog/posts/back-to-building-ronin-security-breach-6513cc78a5ed",
+      "claimSupported": "The attacker controlled enough validators to authorize withdrawals and exploit the bridge's trust assumptions.",
+      "evidenceType": "postmortem"
+    },
+    {
+      "id": "ev_2",
+      "sourceName": "Sky Mavis Announcement",
+      "sourceUrl": "https://roninchain.com/blog/posts/community-alert-ronin-validators-under-attack",
+      "claimSupported": "The bridge was halted and users were informed after the exploit was discovered.",
+      "evidenceType": "official_statement"
+    },
+    {
+      "id": "ev_3",
+      "sourceName": "Rekt Coverage",
+      "sourceUrl": "https://rekt.news/ronin-rekt/",
+      "claimSupported": "Losses reached roughly $624M and the event highlighted bridge trust concentration risks.",
+      "evidenceType": "media"
+    }
+  ],
+  "similarIncidentHints": [
+    "Harmony bridge validator compromise",
+    "Wormhole and Nomad bridge trust failures",
+    "Any incident with concentrated signer or validator control"
+  ]
+}

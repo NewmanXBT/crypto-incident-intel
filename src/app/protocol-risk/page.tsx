@@ -1,8 +1,13 @@
+import Link from "next/link";
+import { getProtocolRiskAnalogs } from "@/lib/incidents";
+
 const checklist = [
   "Identify privileged roles and upgrade paths.",
   "Map the closest historical incidents by root cause and privilege pattern.",
   "Show evidence-backed caveats instead of fake precision."
 ];
+
+const analogs = getProtocolRiskAnalogs();
 
 export default function ProtocolRiskPage() {
   return (
@@ -34,6 +39,24 @@ export default function ProtocolRiskPage() {
             ))}
           </ul>
         </article>
+      </section>
+
+      <section className="panel">
+        <h2>Current Analog Seeds</h2>
+        <div className="resultStack">
+          {analogs.map((incident) => (
+            <Link className="resultCard" key={incident.id} href={`/incidents/${incident.slug}`}>
+              <div className="resultHeader">
+                <div>
+                  <p className="eyebrow compact">{incident.protocol.name}</p>
+                  <h2>{incident.title}</h2>
+                </div>
+                <p className="resultLoss">{incident.classification.rootCauseCategory}</p>
+              </div>
+              <p className="cardCopy">{incident.classification.privilegeGained}</p>
+            </Link>
+          ))}
+        </div>
       </section>
     </main>
   );
