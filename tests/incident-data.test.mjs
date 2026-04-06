@@ -2,8 +2,10 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const rootDir = "/Users/wuenbang/Desktop/crypto-incident-intel";
+const currentFile = fileURLToPath(import.meta.url);
+const rootDir = path.resolve(path.dirname(currentFile), "..");
 
 test("incident dataset validates successfully", () => {
   const output = execFileSync("node", ["scripts/validate-data.mjs"], {
